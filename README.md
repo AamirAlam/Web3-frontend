@@ -12,7 +12,6 @@ Create a new file named `Web3Provider.tsx` in the `src` directory and add the fo
 
 ```typescript
 // @ts-nocheck
-"use client";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -39,4 +38,53 @@ export const Web3Provider = ({ children }: any) => {
     </WagmiProvider>
   );
 };
+```
+
+- Wrap the root component `main.jsx` with `Web3Provider`
+
+```typescript
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { Web3Provider } from "./Web3Provider";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Web3Provider>
+      <App />
+    </Web3Provider>
+  </React.StrictMode>
+);
+```
+
+- Use `ConnectKitButton` button in `App.tsx` component to connect wallets
+
+```typescript
+import "./App.css";
+import { ConnectKitButton } from "connectkit";
+
+function App() {
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <ConnectKitButton />
+      </div>
+      <h1>Welcome to API3 ecosystem</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+- Now you are all set to connect wallets in your vite application. Run your app with
+
+```bash
+yarn dev or npm run dev
 ```
